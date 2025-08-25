@@ -121,8 +121,8 @@ export function HeroSection() {
                                         className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-muted/50"
                                         rel="noreferrer"
                                         initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                                        animate={{ opacity: 1, y: [0, -3, 0] }}
+                                        transition={{ duration: 0.6, delay: 0.5 + index * 0.1, repeat: Infinity, repeatDelay: 2 + index * 0.3 }}
                                     >
                                         <social.icon className="h-5 w-5" />
                                         <span className="sr-only">{social.label}</span>
