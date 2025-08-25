@@ -1,0 +1,153 @@
+---
+import "@/styles/global.css";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
+import InteractiveParticleField from "@/components/ui/InteractiveParticleField";
+import { DockBar } from "@/components/DockBar";
+import { Toaster } from "@/components/ui/sonner";
+import SplashCursor from "../ui/Animations/SplashCursor/SplashCursor";
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+
+// Preload critical resources
+const preloadResources = [
+        { as: "image", href: "/myimg.png", type: "image/png" },
+        { as: "image", href: "/ANlogo.png", type: "image/png" }
+];
+
+// SEO constants to avoid duplication
+  const SITE_URL = "https://abdelkbir-nainiaa.vercel.app/";
+  const SITE_TITLE = "Abdelkbir Nainiaa | Software Engineer";
+  const SITE_DESCRIPTION = "Portfolio of Abdelkbir Nainiaa, a Software Engineer specializing in building modern, full-stack web applications and scalable SaaS solutions. Let's connect and build something amazing.";
+  const PROFILE_IMAGE = "https://abdelkbir-nainiaa.vercel.app/myimg.png";
+  const SITE_LOGO = "https://abdelkbir-nainiaa.vercel.app/ANlogo.png";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{SITE_TITLE}</title>
+    <meta name="description" content={SITE_DESCRIPTION} />
+    <meta
+      name="keywords"
+      content="Abdelkbir Nainiaa, Software Engineer, Web Developer, Frontend Developer, Full-Stack Developer, React Developer, Astro Developer, SaaS, Portfolio, Morocco"
+    />
+    <style>
+      html,
+      body {
+        text-align: center;
+        scroll-behavior: smooth;
+      }
+    </style>
+    <meta name="author" content="Abdelkbir Nainiaa" />
+    <link rel="canonical" href={SITE_URL} />
+    <link rel="icon" type="image/png" href="/ANlogo.png" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Preload critical resources -->
+    {preloadResources.map(resource => (
+      <link rel="preload" href={resource.href} as={resource.as} type={resource.type}  />
+    ))}
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.simpleicons.org" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={SITE_URL} />
+    <meta property="og:title" content={SITE_TITLE} />
+    <meta property="og:description" content={SITE_DESCRIPTION} />
+    <meta property="og:image" content={SITE_LOGO} />
+    <meta property="og:image:alt" content="Abdelkbir Nainiaa Portfolio Logo" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={SITE_URL} />
+    <meta property="twitter:title" content={SITE_TITLE} />
+    <meta property="twitter:description" content={SITE_DESCRIPTION} />
+    <meta property="twitter:image" content={SITE_LOGO} />
+    <meta property="twitter:image:alt" content="Abdelkbir Nainiaa Portfolio Logo" />
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+              "name": "Abdelkbir Nainiaa",
+      "url": "https://abdelkbir-nainiaa.vercel.app/",
+      "image": "https://abdelkbir-nainiaa.vercel.app/myimg.png",
+      "logo": "https://abdelkbir-nainiaa.vercel.app/ANlogo.png",
+      "sameAs": [
+        "https://www.linkedin.com/in/abdelkbir-nainiaa/",
+        "https://github.com/AbdelkbirNA"
+      ],
+        "jobTitle": "Software Engineer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Freelance"
+        },
+        "description": "Software Engineer specializing in building modern, full-stack web applications and scalable SaaS solutions using technologies like React, Astro, and Node.js.",
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "ENSIASD"
+        },
+        "knowsAbout": [
+          "Software Development",
+          "Frontend Development",
+          "Full-Stack Development",
+          "SaaS Architecture",
+          "React",
+          "Astro",
+          "JavaScript",
+          "TypeScript",
+          "Node.js",
+          "Tailwind CSS",
+          "SEO"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Casablanca",
+          "addressCountry": "MA"
+        }
+      }
+    </script>
+    <script is:inline>
+      // Optimized theme script - runs immediately to prevent flash
+      const getThemePreference = () => {
+        if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+          return localStorage.getItem("theme");
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      };
+      const isDark = getThemePreference() === "dark";
+      document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+      if (typeof window !== "undefined") {
+        // Simplified theme observer
+        const observer = new MutationObserver(() => {
+          const isDark = document.documentElement.classList.contains("dark");
+          localStorage.setItem("theme", isDark ? "dark" : "light");
+        });
+
+        observer.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["class"],
+        });
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <DockBar client:visible />
+    <slot />
+    <InteractiveParticleField client:idle />
+    <SplashCursor client:idle />
+    <ScrollProgress client:visible />
+    <Toaster client:idle />
+
+
+    <SpeedInsights />
+    <Analytics />
+  </body>
+</html>
