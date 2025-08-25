@@ -199,61 +199,16 @@ export function ProjectSection() {
                             >
                                 <Card
                                     className="group relative flex flex-col h-full dark:bg-background/5 backdrop-blur-sm dark:border-white/10 border-neutral-300 shadow-lg transition-all duration-500 hover:shadow-2xl overflow-hidden"
-                                    onMouseMove={(e) => {
-                                        const card = e.currentTarget as HTMLElement;
-                                        const rect = card.getBoundingClientRect();
-                                        const x = e.clientX - rect.left;
-                                        const y = e.clientY - rect.top;
-                                        // spotlight position
-                                        card.style.setProperty("--x", `${x}px`);
-                                        card.style.setProperty("--y", `${y}px`);
-                                        // tilt effect
-                                        const rotateX = ((y / rect.height) - 0.5) * -6; // -3deg..3deg
-                                        const rotateY = ((x / rect.width) - 0.5) * 6;  // -3deg..3deg
-                                        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        const card = e.currentTarget as HTMLElement;
-                                        card.style.transform = "rotateX(0deg) rotateY(0deg)";
-                                    }}
                                 >
-                                    {/* Spotlight overlay */}
-                                    <div
-                                        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                        style={{
-                                            background: "radial-gradient(140px 140px at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.08), transparent 60%)"
-                                        }}
-                                    />
-                                    {/* Background Pattern */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                    
-                                    {/* Floating Elements */}
-                                    <motion.div
-                                        className="absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-r from-primary/20 to-primary/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                                        animate={{ 
-                                            scale: [1, 1.2, 1],
-                                            opacity: [0.5, 1, 0.5]
-                                        }}
-                                        transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                                    />
-                                    <motion.div
-                                        className="absolute -bottom-2 -left-2 w-3 h-3 bg-gradient-to-r from-primary/30 to-primary/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                                        animate={{ 
-                                            scale: [1, 1.3, 1],
-                                            opacity: [0.3, 0.8, 0.3]
-                                        }}
-                                        transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.5 }}
-                                    />
+                                    {/* Card content starts here */}
 
                                     <CardContent className="flex-1 px-6 py-6 relative z-10">
                                         <div className="aspect-video bg-muted rounded-xl overflow-hidden mb-6 group-hover:shadow-xl transition-all duration-500">
-                                            <Lens defaultPosition={{ x: 260, y: 150 }}>
-                                                <motion.img
-                                                    src={`/${project.image}`}
-                                                    alt={project.title}
-                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                                />
-                                            </Lens>
+                                            <img
+                                                src={`/${project.image}`}
+                                                alt={project.title}
+                                                className="w-full h-full object-cover"
+                                            />
                                         </div>
 
                                         <h3 className="text-xl font-bold mb-3 line-clamp-1 group-hover:text-primary transition-colors duration-300">
