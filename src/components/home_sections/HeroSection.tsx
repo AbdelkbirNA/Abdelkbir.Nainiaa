@@ -136,8 +136,8 @@ export function HeroSection() {
                     <motion.div
                         className="relative flex justify-center order-2"
                         initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        animate={{ opacity: 1, scale: 1, y: [0, -3, 0] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                     >
                         <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md">
                             <HeroStars />
@@ -147,6 +147,18 @@ export function HeroSection() {
                                     scale: 1.05,
                                     rotateY: 5,
                                     transition: { duration: 0.3 }
+                                }}
+                                whileTap={{ scale: 0.99 }}
+                                onMouseMove={(e) => {
+                                    const el = e.currentTarget as HTMLDivElement;
+                                    const rect = el.getBoundingClientRect();
+                                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                                    el.style.transform = `perspective(800px) rotateX(${y * -5}deg) rotateY(${x * 5}deg)`;
+                                }}
+                                onMouseLeave={(e) => {
+                                    const el = e.currentTarget as HTMLDivElement;
+                                    el.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg)";
                                 }}
                             >
                                 <img

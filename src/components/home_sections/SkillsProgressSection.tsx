@@ -32,29 +32,29 @@ export function SkillsProgressSection() {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
 
-    const skills: Skill[] = [
+    const skills = [
         // Frontend
-        { name: "React", level: 85, icon: <SiReact className="h-5 w-5" />, color: "from-cyan-400 to-cyan-600", category: "Frontend" },
-        { name: "Next.js", level: 80, icon: <SiNextdotjs className="h-5 w-5" />, color: "from-gray-800 to-gray-900", category: "Frontend" },
-        { name: "TypeScript", level: 75, icon: <SiTypescript className="h-5 w-5" />, color: "from-blue-500 to-blue-700", category: "Frontend" },
-        { name: "JavaScript", level: 90, icon: <SiJavascript className="h-5 w-5" />, color: "from-yellow-400 to-yellow-600", category: "Frontend" },
-        { name: "Tailwind CSS", level: 85, icon: <SiTailwindcss className="h-5 w-5" />, color: "from-sky-400 to-sky-600", category: "Frontend" },
+        { name: "React", level: 85, category: "Frontend", icon: <SiReact className="w-5 h-5" />, color: "from-blue-500 to-cyan-500" },
+        { name: "Next.js", level: 80, category: "Frontend", icon: <SiNextdotjs className="w-5 h-5" />, color: "from-gray-800 to-gray-900" },
+        { name: "TypeScript", level: 75, category: "Frontend", icon: <SiTypescript className="w-5 h-5" />, color: "from-blue-600 to-blue-700" },
+        { name: "JavaScript", level: 90, category: "Frontend", icon: <SiJavascript className="w-5 h-5" />, color: "from-yellow-400 to-yellow-500" },
+        { name: "Tailwind CSS", level: 85, category: "Frontend", icon: <SiTailwindcss className="w-5 h-5" />, color: "from-cyan-400 to-cyan-500" },
         
         // Backend
-        { name: "Node.js", level: 80, icon: <SiNodedotjs className="h-5 w-5" />, color: "from-green-500 to-green-700", category: "Backend" },
-        { name: "Laravel", level: 75, icon: <SiLaravel className="h-5 w-5" />, color: "from-red-500 to-red-700", category: "Backend" },
-        { name: "PHP", level: 80, icon: <SiPhp className="h-5 w-5" />, color: "from-purple-500 to-purple-700", category: "Backend" },
-        { name: "MySQL", level: 75, icon: <SiMysql className="h-5 w-5" />, color: "from-blue-500 to-blue-700", category: "Backend" },
-        { name: "MongoDB", level: 70, icon: <SiMongodb className="h-5 w-5" />, color: "from-green-500 to-green-700", category: "Backend" },
+        { name: "Node.js", level: 80, category: "Backend", icon: <SiNodedotjs className="w-5 h-5" />, color: "from-green-500 to-green-600" },
+        { name: "Laravel", level: 75, category: "Backend", icon: <SiLaravel className="w-5 h-5" />, color: "from-red-500 to-red-600" },
+        { name: "PHP", level: 80, category: "Backend", icon: <SiPhp className="w-5 h-5" />, color: "from-purple-500 to-purple-600" },
+        { name: "MySQL", level: 75, category: "Backend", icon: <SiMysql className="w-5 h-5" />, color: "from-blue-500 to-blue-600" },
+        { name: "MongoDB", level: 70, category: "Backend", icon: <SiMongodb className="w-5 h-5" />, color: "from-green-400 to-green-500" },
         
         // DevOps
-        { name: "Docker", level: 70, icon: <SiDocker className="h-5 w-5" />, color: "from-blue-400 to-blue-600", category: "DevOps" },
-        { name: "Git", level: 85, icon: <SiGit className="h-5 w-5" />, color: "from-orange-500 to-orange-700", category: "DevOps" },
+        { name: "Docker", level: 70, category: "DevOps", icon: <SiDocker className="w-5 h-5" />, color: "from-blue-500 to-blue-600" },
+        { name: "Git", level: 85, category: "DevOps", icon: <SiGit className="w-5 h-5" />, color: "from-orange-500 to-orange-600" },
         
         // Tools
-        { name: "Python", level: 75, icon: <SiPython className="h-5 w-5" />, color: "from-blue-500 to-blue-700", category: "Tools" },
-        { name: "Selenium", level: 70, icon: <SiSelenium className="h-5 w-5" />, color: "from-green-500 to-green-700", category: "Tools" },
-        { name: "Figma", level: 65, icon: <SiFigma className="h-5 w-5" />, color: "from-pink-500 to-pink-700", category: "Tools" },
+        { name: "Python", level: 75, category: "Tools", icon: <SiPython className="w-5 h-5" />, color: "from-blue-500 to-blue-600" },
+        { name: "Selenium", level: 70, category: "Tools", icon: <SiSelenium className="w-5 h-5" />, color: "from-green-500 to-green-600" },
+        { name: "Figma", level: 65, category: "Tools", icon: <SiFigma className="w-5 h-5" />, color: "from-purple-500 to-purple-600" },
     ];
 
     const categories = ["Frontend", "Backend", "DevOps", "Tools"];
@@ -76,26 +76,7 @@ export function SkillsProgressSection() {
             </div>
 
             <div className="container px-4 sm:px-6">
-                <motion.div
-                    ref={ref}
-                    className="text-center mb-16"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <Badge className="mb-4 px-4 py-1 text-sm" variant="secondary">
-                        Technical Skills
-                    </Badge>
-                    
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
-                        Skills & Expertise
-                    </h2>
-                    
-                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                        A comprehensive overview of my technical skills and proficiency levels across different technologies.
-                    </p>
-                </motion.div>
+                {/* Header removed as requested */}
 
                 <div className="max-w-6xl mx-auto">
                     {categories.map((category, categoryIndex) => (

@@ -145,9 +145,36 @@ export function ContactSection() {
                                     </LabelInputContainer>
                                     <button
                                         disabled={isSubmitting}
-                                        className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
+                                        className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] overflow-hidden"
                                         type="submit"
+                                        onMouseMove={(e) => {
+                                            const btn = e.currentTarget as HTMLButtonElement;
+                                            const rect = btn.getBoundingClientRect();
+                                            const x = e.clientX - rect.left;
+                                            const y = e.clientY - rect.top;
+                                            btn.style.setProperty("--mx", `${x}px`);
+                                            btn.style.setProperty("--my", `${y}px`);
+                                        }}
+                                        onClick={(e) => {
+                                            const btn = e.currentTarget as HTMLButtonElement;
+                                            const ripple = document.createElement("span");
+                                            ripple.className = "pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/30 dark:bg-white/20 animate-[ripple_600ms_ease-out]";
+                                            ripple.style.left = `var(--mx)`;
+                                            ripple.style.top = `var(--my)`;
+                                            ripple.style.width = ripple.style.height = "12rem";
+                                            btn.appendChild(ripple);
+                                            setTimeout(() => ripple.remove(), 650);
+                                        }}
+                                        style={{
+                                            transformOrigin: "var(--mx) var(--my)",
+                                        }}
                                     >
+                                        <span
+                                            className="pointer-events-none absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"
+                                            style={{
+                                                background: "radial-gradient(200px 200px at var(--mx) var(--my), rgba(255,255,255,0.10), transparent 60%)"
+                                            }}
+                                        />
                                         {isSubmitting ? (
                                             <div className="flex items-center justify-center">
                                                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

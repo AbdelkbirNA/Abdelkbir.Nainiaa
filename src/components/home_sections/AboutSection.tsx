@@ -175,7 +175,7 @@ export function AboutSection() {
           transition={{ duration: 0.6 }}
         >
           <Badge className="mb-4" variant="secondary">About Me</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 drop-shadow-[0_0_13px_rgba(59,59,59,1)] dark:drop-shadow-[0_0_20px_rgba(200,200,200,1)]">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 drop-shadow-[0_0_13px_rgba(59,59,59,1)] dark:drop-shadow-[0_0_20px_rgba(200,200,200,1)] bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/70 to-foreground animate-[shimmer_4s_linear_infinite] [background-size:200%_100%]">
             My Journey & Expertise
           </h2>
           <p className="text-muted-foreground text-lg">

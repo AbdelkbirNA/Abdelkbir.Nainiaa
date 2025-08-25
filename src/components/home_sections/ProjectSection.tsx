@@ -197,7 +197,33 @@ export function ProjectSection() {
                                 transition={{ duration: 0.6, delay: index * 0.1 }}
                                 whileHover={{ y: -15, scale: 1.03 }}
                             >
-                                <Card className="group relative flex flex-col h-full dark:bg-background/5 backdrop-blur-sm dark:border-white/10 border-neutral-300 shadow-lg transition-all duration-500 hover:shadow-2xl overflow-hidden">
+                                <Card
+                                    className="group relative flex flex-col h-full dark:bg-background/5 backdrop-blur-sm dark:border-white/10 border-neutral-300 shadow-lg transition-all duration-500 hover:shadow-2xl overflow-hidden"
+                                    onMouseMove={(e) => {
+                                        const card = e.currentTarget as HTMLElement;
+                                        const rect = card.getBoundingClientRect();
+                                        const x = e.clientX - rect.left;
+                                        const y = e.clientY - rect.top;
+                                        // spotlight position
+                                        card.style.setProperty("--x", `${x}px`);
+                                        card.style.setProperty("--y", `${y}px`);
+                                        // tilt effect
+                                        const rotateX = ((y / rect.height) - 0.5) * -6; // -3deg..3deg
+                                        const rotateY = ((x / rect.width) - 0.5) * 6;  // -3deg..3deg
+                                        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        const card = e.currentTarget as HTMLElement;
+                                        card.style.transform = "rotateX(0deg) rotateY(0deg)";
+                                    }}
+                                >
+                                    {/* Spotlight overlay */}
+                                    <div
+                                        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                        style={{
+                                            background: "radial-gradient(140px 140px at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.08), transparent 60%)"
+                                        }}
+                                    />
                                     {/* Background Pattern */}
                                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                     
