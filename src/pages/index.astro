@@ -5,7 +5,7 @@ import { ProjectSection } from "../components/home_sections/ProjectSection";
 import { AboutSection } from "../components/home_sections/AboutSection";
 import { ContactSection } from "../components/home_sections/Contactsection";
 import { FooterSection } from "../components/home_sections/FooterSection";
-import { FloatingNav } from "../components/ui/floating-nav";
+// ...existing code...
 ---
 
 <Layout>
@@ -17,13 +17,12 @@ import { FloatingNav } from "../components/ui/floating-nav";
     <FooterSection client:visible />
   </main>
   
-  <FloatingNav client:load />
 </Layout>
 <style>
   main {
     display: flex;
     flex-direction: column;
-    align-items: center;
+   align-items: center;
     justify-content: center;
     min-height: 100vh;
     overflow: hidden;
