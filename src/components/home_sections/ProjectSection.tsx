@@ -46,7 +46,7 @@ export function ProjectSection() {
             title: "EduTrack",
             description: "Interactive e-learning platform for course publishing, progress tracking, quizzes, and secure authentication.",
             image: "edutrack.jpg",
-            category: "Web App",
+            category: "Web",
             tags: ["Java", "MongoDB", "Docker", "Git"],
             liveUrl: "",
             githubUrl: "https://github.com/IBIZZI-Khalid/E-Learning-Management-System-EDUTRACK",
@@ -56,7 +56,7 @@ export function ProjectSection() {
             title: "E-Professor",
             description: "Academic website for professors to showcase work and manage courses. Includes resource sharing.",
             image: "eprof.jpg",
-            category: "Web App",
+            category: "Web",
             tags: ["PHP", "Laravel", "MySQL", "CSS", "HTML", "Git"],
             liveUrl: "",
             githubUrl: "https://github.com/AbdelkbirNA/ProjetWeb_EduSchool",
@@ -66,7 +66,7 @@ export function ProjectSection() {
             title: "OrnoPlante",
             description: "A smart plant monitoring system for optimal growth. (Placeholder description)",
             image: "ornoplante.png",
-            category: "Web App",
+            category: "Web",
             tags: ["React", "Next.js", "Node.js", "Tailwind CSS", "Git","Docker","Express.js"],
             liveUrl: "",
             githubUrl: "https://github.com/AbdelkbirNA/OrnoPlante",
@@ -167,21 +167,26 @@ export function ProjectSection() {
 
                     <div className="flex flex-wrap justify-center gap-2 mt-8">
                         {filters.map((filter) => (
-                            <Button
+                            <motion.div
                                 key={filter}
-                                variant={activeFilter === filter ? "default" : "outline"}
-                                size="sm"
-                                className="rounded-full transition-all"
-                                onClick={() => setActiveFilter(filter)}
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                {filter}
-                            </Button>
+                                <Button
+                                    variant={activeFilter === filter ? "default" : "outline"}
+                                    size="sm"
+                                    className="rounded-full transition-all duration-300"
+                                    onClick={() => setActiveFilter(filter)}
+                                >
+                                    {filter}
+                                </Button>
+                            </motion.div>
                         ))}
                     </div>
                 </motion.div>
 
                 <div className="mx-auto flex justify-center items-center">
-                    <div className="grid grid-cols-1 sm:grid-cols-2   justify-center items-center lg:grid-cols-3   gap-6 mx-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 justify-center items-center lg:grid-cols-3 gap-8 mx-auto">
                         {filteredProjects.map((project, index) => (
                             <motion.div
                                 key={project.id}
@@ -190,84 +195,121 @@ export function ProjectSection() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.6, delay: index * 0.1 }}
+                                whileHover={{ y: -15, scale: 1.03 }}
                             >
-                                <Card className="flex flex-col h-full dark:bg-background/5 backdrop-blur-sm dark:border-white/10 border-neutral-300 shadow-lg transition-all  duration-300 hover:shadow-xl">
-                                    <CardContent className="flex-1 px-5">
-                                        <div className="aspect-video bg-muted rounded-xl overflow-hidden">
+                                <Card className="group relative flex flex-col h-full dark:bg-background/5 backdrop-blur-sm dark:border-white/10 border-neutral-300 shadow-lg transition-all duration-500 hover:shadow-2xl overflow-hidden">
+                                    {/* Background Pattern */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    
+                                    {/* Floating Elements */}
+                                    <motion.div
+                                        className="absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-r from-primary/20 to-primary/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                        animate={{ 
+                                            scale: [1, 1.2, 1],
+                                            opacity: [0.5, 1, 0.5]
+                                        }}
+                                        transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
+                                    />
+                                    <motion.div
+                                        className="absolute -bottom-2 -left-2 w-3 h-3 bg-gradient-to-r from-primary/30 to-primary/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                        animate={{ 
+                                            scale: [1, 1.3, 1],
+                                            opacity: [0.3, 0.8, 0.3]
+                                        }}
+                                        transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.5 }}
+                                    />
+
+                                    <CardContent className="flex-1 px-6 py-6 relative z-10">
+                                        <div className="aspect-video bg-muted rounded-xl overflow-hidden mb-6 group-hover:shadow-xl transition-all duration-500">
                                             <Lens defaultPosition={{ x: 260, y: 150 }}>
-                                                <img
+                                                <motion.img
                                                     src={`/${project.image}`}
                                                     alt={project.title}
-                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                                 />
                                             </Lens>
                                         </div>
 
-                                        <h3 className="text-xl font-bold mt-4 line-clamp-1">
+                                        <h3 className="text-xl font-bold mb-3 line-clamp-1 group-hover:text-primary transition-colors duration-300">
                                             {project.title}
                                         </h3>
 
                                         {/* Enhanced description area */}
-                                        <p className="mt-3 text-base text-muted-foreground line-clamp-3 min-h-[72px]">
+                                        <p className="text-base text-muted-foreground line-clamp-3 min-h-[72px] leading-relaxed group-hover:text-foreground transition-colors duration-300">
                                             {project.description}
                                         </p>
 
-                                        <div className="flex flex-wrap gap-1.5 mt-4">
+                                        <div className="flex flex-wrap gap-2 mt-6">
                                             {project.tags.map((tag) => (
-                                                <Badge
+                                                <motion.div
                                                     key={tag}
-                                                    variant="secondary"
-                                                    className="bg-background/30 backdrop-blur-sm border-white/10 flex items-center gap-1 text-xs font-normal px-2 py-1"
+                                                    whileHover={{ scale: 1.05, y: -2 }}
+                                                    transition={{ type: "spring", stiffness: 300 }}
                                                 >
-                                                    <span className="flex-shrink-0">
-                                                        {tagIcons[tag] || null}
-                                                    </span>
-                                                    <span className="truncate max-w-[70px]">{tag}</span>
-                                                </Badge>
+                                                    <Badge
+                                                        variant="secondary"
+                                                        className="bg-background/30 backdrop-blur-sm border-white/10 flex items-center gap-1 text-xs font-normal px-3 py-1.5 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all duration-300"
+                                                    >
+                                                        <span className="flex-shrink-0">
+                                                            {tagIcons[tag] || null}
+                                                        </span>
+                                                        <span className="truncate max-w-[70px]">{tag}</span>
+                                                    </Badge>
+                                                </motion.div>
                                             ))}
                                         </div>
                                     </CardContent>
 
-                                    <CardFooter className="px-5 pb-2 gap-2 flex-wrap">
-
+                                    <CardFooter className="px-6 pb-6 gap-3 flex-wrap relative z-10">
                                         {project.githubUrl !== "" &&
-                                            <Button
-                                                size="sm"
-                                                variant="outline"
-                                                className="flex-1 min-w-[120px] border-neutral-800 dark:border-white/20 hover:bg-neutral-100 dark:hover:bg-white/5 text-neutral-800 dark:text-white"
-                                                asChild
+                                            <motion.div
+                                                whileHover={{ scale: 1.05, y: -2 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                className="flex-1 min-w-[120px]"
                                             >
-                                                <a
-                                                    href={project.githubUrl}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="flex items-center gap-2 justify-center"
+                                                <Button
+                                                    size="sm"
+                                                    variant="outline"
+                                                    className="w-full border-neutral-800 dark:border-white/20 hover:bg-neutral-100 dark:hover:bg-white/5 text-neutral-800 dark:text-white group-hover:border-primary group-hover:text-primary transition-all duration-300"
+                                                    asChild
                                                 >
-                                                    <Github className="h-4 w-4 flex-shrink-0" />
-                                                    <span>Code</span>
-                                                </a>
-                                            </Button>
+                                                    <a
+                                                        href={project.githubUrl}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center gap-2 justify-center"
+                                                    >
+                                                        <Github className="h-4 w-4 flex-shrink-0" />
+                                                        <span>Code</span>
+                                                    </a>
+                                                </Button>
+                                            </motion.div>
                                         }
 
                                         {project.liveUrl !== "" &&
-                                            <Button
-                                                size="sm"
-                                                variant="outline"
-                                                className="flex-1 min-w-[120px] border-neutral-800 dark:border-white/20 hover:bg-neutral-100 dark:hover:bg-white/5 text-neutral-800 dark:text-white"
-                                                asChild
+                                            <motion.div
+                                                whileHover={{ scale: 1.05, y: -2 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                className="flex-1 min-w-[120px]"
                                             >
-                                                <a
-                                                    href={project.liveUrl}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="flex items-center gap-2 justify-center"
+                                                <Button
+                                                    size="sm"
+                                                    variant="outline"
+                                                    className="w-full border-neutral-800 dark:border-white/20 hover:bg-neutral-100 dark:hover:bg-white/5 text-neutral-800 dark:text-white group-hover:border-primary group-hover:text-primary transition-all duration-300"
+                                                    asChild
                                                 >
-                                                    <ExternalLink className="h-4 w-4 flex-shrink-0" />
-                                                    <span>Live Demo</span>
-                                                </a>
-                                            </Button>
+                                                    <a
+                                                        href={project.liveUrl}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center gap-2 justify-center"
+                                                    >
+                                                        <ExternalLink className="h-4 w-4 flex-shrink-0" />
+                                                        <span>Live Demo</span>
+                                                    </a>
+                                                </Button>
+                                            </motion.div>
                                         }
-
                                     </CardFooter>
                                 </Card>
                             </motion.div>

@@ -1,28 +1,32 @@
-import { cn } from "@/lib/utils";
-import { motion, type MotionProps, useScroll } from "motion/react";
-import React from "react";
-interface ScrollProgressProps
-    extends Omit<React.HTMLAttributes<HTMLElement>, keyof MotionProps> {}
+"use client";
 
-export const ScrollProgress = React.forwardRef<
-    HTMLDivElement,
-    ScrollProgressProps
->(({ className, ...props }, ref) => {
+import { motion, useScroll, useSpring } from "framer-motion";
+
+export function ScrollProgress() {
     const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
 
     return (
         <motion.div
-            ref={ref}
-            className={cn(
-                "fixed inset-x-0 top-0 z-50 h-px origin-left bg-gradient-to-r from-[#A97CF8] via-[#F38CB8] to-[#FDCC92]",
-                className,
-            )}
-            style={{
-                scaleX: scrollYProgress,
-            }}
-            {...props}
-        />
+            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/80 to-primary/60 origin-left z-50 shadow-lg"
+            style={{ scaleX }}
+        >
+            {/* Animated Shine Effect */}
+            <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                animate={{
+                    x: ["-100%", "100%"]
+                }}
+                transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    repeatDelay: 3
+                }}
+            />
+        </motion.div>
     );
-});
-
-ScrollProgress.displayName = "ScrollProgress";
+}

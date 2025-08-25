@@ -2,20 +2,26 @@
 import Layout from "../layouts/Layout.astro";
 import { HeroSection } from "../components/home_sections/HeroSection";
 import { ProjectSection } from "../components/home_sections/ProjectSection";
+import { SkillsProgressSection } from "../components/home_sections/SkillsProgressSection";
 import { AboutSection } from "../components/home_sections/AboutSection";
 import { ContactSection } from "../components/home_sections/Contactsection";
 import { FooterSection } from "../components/home_sections/FooterSection";
+import { FloatingNav } from "../components/ui/floating-nav";
 ---
 
 <Layout>
   <main class="px-5 md:px-10">
     <HeroSection client:load />
     <ProjectSection client:visible />
+    <SkillsProgressSection client:visible />
     <AboutSection client:visible />
     <ContactSection client:visible />
     <FooterSection client:visible />
   </main>
+  
+  <FloatingNav client:load />
 </Layout>
+
 <style>
   main {
     display: flex;
