@@ -217,7 +217,7 @@ export function AboutSection() {
               </span>
             </h3>
             <p className="text-muted-foreground">
-              I'm Abdelkbir Nainiaa, a Software Engineering student passionate about building innovative and scalable software solutions. I enjoy exploring web development, AI, and DevOps, and I'm driven by the challenge of turning ideas into impactful applications.
+              I'm a Software Engineering student passionate about building innovative and scalable software solutions. I enjoy exploring web development, AI, and DevOps, and I'm driven by the challenge of turning ideas into impactful applications.
             </p>
             <p className="text-muted-foreground">
               With a strong foundation in both design and development, I approach every project with a balanced mindset
