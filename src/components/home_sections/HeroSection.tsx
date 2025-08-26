@@ -31,30 +31,7 @@ export function HeroSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <motion.div 
-                            className="inline-block whitespace-pre-wrap text-sm md:text-base rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 px-4 py-1.5 font-semibold text-gray-900 dark:text-gray-100 border border-blue-300/30 dark:border-purple-300/30 backdrop-blur-sm"
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            transition={{ type: "spring", stiffness: 300 }}
-                        >
-                            Hello, You, I'm{" "}
-                            <TextLoop
-                                transition={{
-                                    type: "spring",
-                                    stiffness: 900,
-                                    damping: 80,
-                                    mass: 10,
-                                }}
-                                variants={{
-                                    initial: { y: 20, rotateX: 90, opacity: 0, filter: "blur(4px)" },
-                                    animate: { y: 0, rotateX: 0, opacity: 1, filter: "blur(0px)" },
-                                    exit: { y: -20, rotateX: -90, opacity: 0, filter: "blur(4px)" },
-                                }}
-                            >
-                                <span>Engineer 🧑‍💻</span>
-                                <span>Gamer 🎮</span>
-                                <span>Designer 🎨</span>
-                            </TextLoop>
-                        </motion.div>
+                        
 
                         <motion.div
                             className="flex justify-center mb-4"
