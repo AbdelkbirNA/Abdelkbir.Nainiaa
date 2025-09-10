@@ -64,12 +64,22 @@ export function ProjectSection() {
         {
             id: 3,
             title: "OrnoPlante",
-            description: "A smart plant monitoring system for optimal growth. (Placeholder description)",
+            description: "An AI-powered smart plant monitoring system for optimal growth, providing intelligent recommendations for plant care.",
             image: "ornoplante.png",
             category: "Web",
             tags: ["React", "Next.js", "Node.js", "Tailwind CSS", "Git","Docker","Express.js"],
             liveUrl: "",
             githubUrl: "https://github.com/AbdelkbirNA/OrnoPlante",
+        },
+        {
+            id: 4,
+            title: "EduHub",
+            description: "A collaborative educational platform where students can create accounts, upload and share resources, and interact with each other.",
+            image: "eduhub.jpg",
+            category: "Web",
+            tags: ["Next.js", "Tailwind CSS", "Node.js", "MySQL", "Docker", "Git"],
+            liveUrl: "https://eduhubcenter.online/",
+            githubUrl: "",
         }
     ];
 
@@ -216,7 +226,7 @@ export function ProjectSection() {
                                         </h3>
 
                                         {/* Enhanced description area */}
-                                        <p className="text-base text-muted-foreground line-clamp-3 min-h-[72px] leading-relaxed group-hover:text-foreground transition-colors duration-300">
+                                        <p className="text-base text-muted-foreground line-clamp-4 min-h-[96px] leading-relaxed group-hover:text-foreground transition-colors duration-300">
                                             {project.description}
                                         </p>
 
@@ -286,7 +296,7 @@ export function ProjectSection() {
                                                         className="flex items-center gap-2 justify-center"
                                                     >
                                                         <ExternalLink className="h-4 w-4 flex-shrink-0" />
-                                                        <span>Live Demo</span>
+                                                        <span>Live</span>
                                                     </a>
                                                 </Button>
                                             </motion.div>

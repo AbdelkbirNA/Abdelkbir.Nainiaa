@@ -109,8 +109,15 @@ export function AboutSection() {
   const experiences = [
     {
       title: "Full-Stack Developer",
+      company: "Personal Project",
+      period: "2025 - Present",
+      description:
+        "Led the development of EduHub, a collaborative educational platform, from conception to deployment. Engineered a scalable and secure web application.",
+    },
+    {
+      title: "DevOps Engineer",
       company: "2DK Services",
-      period: "Jul 2025 – Present",
+      period: "Jul 2025 – Sep 2025",
       description:
         "Contributed to the development and improvement of innovative web solutions, including OrnoPlante, an AI-powered plant care platform, using modern web technologies and DevOps practices.",
     },
@@ -241,7 +248,7 @@ export function AboutSection() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Briefcase className="h-4 w-4 text-blue-400" />
-                  <span className="text-sm">3+ Projects Completed</span>
+                  <span className="text-sm">4+ Projects Completed</span>
                 </div>
               </div>
             </div>
