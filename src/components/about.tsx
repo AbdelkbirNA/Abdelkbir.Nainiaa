@@ -5,7 +5,7 @@ import type { JSX } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Code, Palette, Download, Award, BookOpen, Briefcase, Lightbulb, Clock } from "lucide-react"
-import { AboutStars } from "@/components/effects/stars"
+import { AboutStars } from "@/components/ui/stars"
 import {
   SiJavascript,
   SiTypescript,
