@@ -76,13 +76,19 @@ const preloadResources = [
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://cdn.simpleicons.org" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content={type} />
     <meta property="og:url" content={PAGE_URL} />
     <meta property="og:title" content={SITE_TITLE} />
     <meta property="og:description" content={SITE_DESCRIPTION} />
     <meta property="og:image" content={PROFILE_IMAGE} />
-    <meta property="og:image:alt" content="Abdelkbir Nainiaa Portfolio Logo" />
+    <meta property="og:image:secure_url" content={PROFILE_IMAGE} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Abdelkbir Nainiaa - Software Engineer Portfolio" />
+    <meta property="og:site_name" content="Abdelkbir Nainiaa Portfolio" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -90,7 +96,10 @@ const preloadResources = [
     <meta property="twitter:title" content={SITE_TITLE} />
     <meta property="twitter:description" content={SITE_DESCRIPTION} />
     <meta property="twitter:image" content={PROFILE_IMAGE} />
-    <meta property="twitter:image:alt" content="Abdelkbir Nainiaa Portfolio Logo" />
+    <meta property="twitter:image:alt" content="Abdelkbir Nainiaa - Software Engineer Portfolio" />
+    
+    <!-- WhatsApp specific (uses Open Graph but these help) -->
+    <meta property="og:updated_time" content={new Date().toISOString()} />
 
     <!-- Structured Data for SEO -->
     <script type="application/ld+json" set:html={JSON.stringify({
