@@ -8,6 +8,23 @@ import SplashCursor from "../ui/Animations/SplashCursor/SplashCursor";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
+// Props for dynamic SEO
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  canonical?: string;
+}
+
+const { 
+  title, 
+  description, 
+  image, 
+  type = "website",
+  canonical
+} = Astro.props;
+
 // Preload critical resources
 const preloadResources = [
         { as: "image", href: "/myimg.png", type: "image/png" },
@@ -15,11 +32,12 @@ const preloadResources = [
 ];
 
 // SEO constants to avoid duplication
-  const SITE_URL = "https://abdelkbirnainiaa.vercel.app/";
-  const SITE_TITLE = "Abdelkbir Nainiaa | Software Engineer";
-  const SITE_DESCRIPTION = "Portfolio of Abdelkbir Nainiaa, a Software Engineer specializing in building modern, full-stack web applications and scalable SaaS solutions. Let's connect and build something amazing.";
-  const PROFILE_IMAGE = "https://abdelkbirnainiaa.vercel.app/myimg.png";
-  const SITE_LOGO = "https://abdelkbirnainiaa.vercel.app/myimg.png";
+  const SITE_URL = "https://www.abdelkbirnainiaa.me/";
+  const SITE_TITLE = title || "Abdelkbir Nainiaa | Software Engineer";
+  const SITE_DESCRIPTION = description || "Portfolio of Abdelkbir Nainiaa, a Software Engineer specializing in building modern, full-stack web applications and scalable SaaS solutions. Let's connect and build something amazing.";
+  const PROFILE_IMAGE = image || "https://www.abdelkbirnainiaa.me/myimg.png";
+  const SITE_LOGO = "https://www.abdelkbirnainiaa.me/myimg.png";
+  const PAGE_URL = canonical || SITE_URL;
 ---
 
 <!doctype html>
@@ -33,6 +51,11 @@ const preloadResources = [
       name="keywords"
       content="Abdelkbir Nainiaa, Software Engineer, Web Developer, Frontend Developer, Full-Stack Developer, React Developer, Astro Developer, SaaS, Portfolio, Morocco"
     />
+    <meta name="google-site-verification" content="aed4be8cc16949c6" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="#6366f1" />
     <style>
       html,
       body {
@@ -41,7 +64,7 @@ const preloadResources = [
       }
     </style>
     <meta name="author" content="Abdelkbir Nainiaa" />
-    <link rel="canonical" href={SITE_URL} />
+    <link rel="canonical" href={PAGE_URL} />
     <link rel="icon" type="image/png" href="/ANlogo.png" />
     <meta name="generator" content={Astro.generator} />
     
@@ -54,64 +77,101 @@ const preloadResources = [
     <link rel="preconnect" href="https://cdn.simpleicons.org" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={SITE_URL} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={PAGE_URL} />
     <meta property="og:title" content={SITE_TITLE} />
     <meta property="og:description" content={SITE_DESCRIPTION} />
-    <meta property="og:image" content={SITE_LOGO} />
+    <meta property="og:image" content={PROFILE_IMAGE} />
     <meta property="og:image:alt" content="Abdelkbir Nainiaa Portfolio Logo" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={SITE_URL} />
+    <meta property="twitter:url" content={PAGE_URL} />
     <meta property="twitter:title" content={SITE_TITLE} />
     <meta property="twitter:description" content={SITE_DESCRIPTION} />
-    <meta property="twitter:image" content={SITE_LOGO} />
+    <meta property="twitter:image" content={PROFILE_IMAGE} />
     <meta property="twitter:image:alt" content="Abdelkbir Nainiaa Portfolio Logo" />
 
     <!-- Structured Data for SEO -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-              "name": "Abdelkbir Nainiaa",
-      "url": "https://abdelkbirnainiaa.vercel.app/",
-      "image": "https://abdelkbirnainiaa.vercel.app/myimg.png",
-      "logo": "https://abdelkbirnainiaa.vercel.app/ANlogo.png",
-      "sameAs": [
-        "https://www.linkedin.com/in/abdelkbir-nainiaa/",
-        "https://github.com/AbdelkbirNA"
-      ],
-        "jobTitle": "Software Engineer",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Freelance"
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.abdelkbirnainiaa.me/#person",
+          "name": "Abdelkbir Nainiaa",
+          "url": "https://www.abdelkbirnainiaa.me/",
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://www.abdelkbirnainiaa.me/myimg.png",
+            "width": 512,
+            "height": 512
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/abdelkbir-nainiaa/",
+            "https://github.com/AbdelkbirNA"
+          ],
+          "jobTitle": "Software Engineer",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Freelance"
+          },
+          "description": "Software Engineer specializing in building modern, full-stack web applications and scalable SaaS solutions using technologies like React, Astro, and Node.js.",
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "ENSIASD"
+          },
+          "knowsAbout": [
+            "Software Development",
+            "Frontend Development",
+            "Full-Stack Development",
+            "SaaS Architecture",
+            "React",
+            "Astro",
+            "JavaScript",
+            "TypeScript",
+            "Node.js",
+            "Tailwind CSS",
+            "SEO"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Casablanca",
+            "addressCountry": "MA"
+          }
         },
-        "description": "Software Engineer specializing in building modern, full-stack web applications and scalable SaaS solutions using technologies like React, Astro, and Node.js.",
-        "alumniOf": {
-          "@type": "CollegeOrUniversity",
-          "name": "ENSIASD"
+        {
+          "@type": "WebSite",
+          "@id": "https://www.abdelkbirnainiaa.me/#website",
+          "url": "https://www.abdelkbirnainiaa.me/",
+          "name": "Abdelkbir Nainiaa Portfolio",
+          "description": "Portfolio of Abdelkbir Nainiaa, Software Engineer specializing in full-stack development and SaaS solutions.",
+          "publisher": {
+            "@id": "https://www.abdelkbirnainiaa.me/#person"
+          },
+          "inLanguage": "en-US",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.abdelkbirnainiaa.me/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
         },
-        "knowsAbout": [
-          "Software Development",
-          "Frontend Development",
-          "Full-Stack Development",
-          "SaaS Architecture",
-          "React",
-          "Astro",
-          "JavaScript",
-          "TypeScript",
-          "Node.js",
-          "Tailwind CSS",
-          "SEO"
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Casablanca",
-          "addressCountry": "MA"
+        {
+          "@type": "WebPage",
+          "@id": `${PAGE_URL}#webpage`,
+          "url": PAGE_URL,
+          "name": SITE_TITLE,
+          "description": SITE_DESCRIPTION,
+          "isPartOf": {
+            "@id": "https://www.abdelkbirnainiaa.me/#website"
+          },
+          "about": {
+            "@id": "https://www.abdelkbirnainiaa.me/#person"
+          },
+          "inLanguage": "en-US"
         }
-      }
-    </script>
+      ]
+    })} />
     <script is:inline>
       // Optimized theme script - runs immediately to prevent flash
       const getThemePreference = () => {

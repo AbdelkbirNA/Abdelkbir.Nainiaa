@@ -1,9 +1,21 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 ---
 
-<Layout>
+<Layout
+  title="Resume | Abdelkbir Nainiaa - Software Engineer"
+  description="View the professional resume of Abdelkbir Nainiaa, including skills in full-stack development, React, Node.js, and experience in building scalable SaaS applications."
+  canonical="https://www.abdelkbirnainiaa.me/resume"
+>
   <main class="container my-24 px-5">
+    <Breadcrumb 
+      client:load
+      items={[
+        { label: "Home", href: "/" },
+        { label: "Resume" }
+      ]}
+    />
     <h1 class="text-4xl font-bold mb-8">Abdelkbir Nainiaa - Software Engineer</h1>
     
     <section class="mb-12">

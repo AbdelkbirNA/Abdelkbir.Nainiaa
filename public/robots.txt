@@ -1,5 +1,9 @@
+User-agent: Googlebot
+Allow: /
+
 User-agent: *
 Allow: /
 Disallow: /*.js.map
 Disallow: /*.css.map
-Sitemap: https://abdelkbir-nainiaa.vercel.app/sitemap-index.xml
+
+Sitemap: https://www.abdelkbirnainiaa.me/sitemap-index.xml

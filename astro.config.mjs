@@ -9,8 +9,32 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-      site: "https://abdelkbir-nainiaa.vercel.app/",
-  integrations: [react(), sitemap()],
+      site: "https://www.abdelkbirnainiaa.me/",
+  integrations: [
+    react(), 
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+      customPages: [
+        'https://www.abdelkbirnainiaa.me/',
+        'https://www.abdelkbirnainiaa.me/resume',
+        'https://www.abdelkbirnainiaa.me/blog'
+      ],
+      filter: (page) => !page.includes('/admin') && !page.includes('/draft'),
+      serialize(item) {
+        if (item.url === 'https://www.abdelkbirnainiaa.me/') {
+          item.changefreq = 'daily';
+          item.priority = 1.0;
+        }
+        if (item.url.includes('/blog/')) {
+          item.changefreq = 'monthly';
+          item.priority = 0.8;
+        }
+        return item;
+      }
+    })
+  ],
 
   vite: {
     plugins: [tailwindcss()],
