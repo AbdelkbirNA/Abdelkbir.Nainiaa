@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -58,14 +57,6 @@ const postImage = post.data.heroImage ? `https://www.abdelkbirnainiaa.me${post.d
   </script>
   
   <main class="container my-24 px-5 prose dark:prose-invert lg:prose-xl">
-    <Breadcrumb 
-      client:load
-      items={[
-        { label: "Home", href: "/" },
-        { label: "Blog", href: "/blog" },
-        { label: post.data.title }
-      ]}
-    />
     <img src={post.data.heroImage} alt={post.data.title} class="w-full rounded-lg mb-8" />
     <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
     <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">{post.data.description}</p>

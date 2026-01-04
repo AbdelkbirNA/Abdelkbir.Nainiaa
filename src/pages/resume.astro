@@ -1,6 +1,5 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
 ---
 
 <Layout
@@ -9,13 +8,6 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
   canonical="https://www.abdelkbirnainiaa.me/resume"
 >
   <main class="container my-24 px-5">
-    <Breadcrumb 
-      client:load
-      items={[
-        { label: "Home", href: "/" },
-        { label: "Resume" }
-      ]}
-    />
     <h1 class="text-4xl font-bold mb-8">Abdelkbir Nainiaa - Software Engineer</h1>
     
     <section class="mb-12">
