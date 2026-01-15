@@ -1,9 +1,19 @@
+# Allow all search engines to crawl the entire site.
+User-agent: *
+Allow: /
+
+# Specific directives for major search engines (optional, but good practice)
 User-agent: Googlebot
 Allow: /
 
-User-agent: *
+User-agent: Bingbot
 Allow: /
-Disallow: /*.js.map
-Disallow: /*.css.map
 
-Sitemap: https://www.abdelkbirnainiaa.me/sitemap-index.xml
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SEMrushBot
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.abdelkbirnainiaa.me/sitemap.xml

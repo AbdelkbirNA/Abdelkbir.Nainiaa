@@ -1,87 +1,74 @@
-# Abdelkbir Nainiaa | Software Engineer Portfolio
+# 🚀 My Portfolio Website
 
-Welcome to the official portfolio of Abdelkbir Nainiaa, a passionate Software Engineer specializing in building modern, high-performance, and scalable web applications.
+Welcome to the repository for my personal portfolio website! This is where I showcase my skills, projects, and a bit of my personality through jaw-dropping 3D animations, slick interactions, and fluid motion. If you're into creative web design, you're in the right place.
 
-This portfolio showcases my skills, projects, and experience in full-stack development, with a strong focus on cutting-edge frontend technologies and robust backend solutions.
+![Portfolio Preview](https://github.com/AbdelkbirNA/3d-portfolio/blob/main/public/assets/projects-screenshots/portfolio/landing.png?raw=true)
 
-## ✨ Features
+## 🔥 Features
 
-*   **Modern & Responsive UI:** Built with Astro and React, styled with Tailwind CSS for a seamless experience across all devices.
-*   **Interactive Elements:** Engaging animations and interactive components powered by Framer Motion and GSAP.
-*   **Dynamic Project Showcase:** Detailed sections for showcasing personal and professional projects.
-*   **SEO Optimized:** Enhanced with structured data, meta tags, and a sitemap for better search engine visibility.
-*   **Contact Form:** A functional contact form with Zod validation and React Hook Form for robust user input.
-*   **Integrated Blog:** A dedicated blog section to share insights, technical articles, and project updates.
-*   **Dark Mode Toggle:** User-friendly dark mode for improved accessibility and aesthetics.
-*   **Interactive Star Background:** A captivating 3D starfield background using React Three Fiber.
-*   **Resume Page:** An accessible HTML version of my resume for easy viewing and indexing.
+- **3D Animations**: Custom-made interactive keyboard using Spline with skills as keycaps that reveal titles and descriptions on hover.
+- **Slick Interactions**: Powered by GSAP and Framer Motion for smooth animations on scroll, hover, and element reveal.
+- **Space Theme**: Particles on a dark background to simulate a cosmic environment, making the experience out of this world.
+- **Responsive Design**: Fully responsive across all devices to ensure the best user experience.
+- **Innovative Web Design**: Combining creativity with functionality to push the boundaries of modern web design.
 
-## 🚀 Live Demo
+## 🛠️ Tech Stack
 
-Explore the live version of my portfolio here: [https://www.abdelkbirnainiaa.me/](https://www.abdelkbirnainiaa.me/)
+- **Frontend**: Next.js, React, Tailwind CSS, Shadcn, Aceternity UI
+- **Animations**: GSAP, Framer Motion, Spline Runtime
+- **Misc**: Resend, Socketio, Zod
 
-## 🛠️ Technologies Used
-
-This project is built using a modern and robust tech stack:
-
-*   **Framework:** [Astro](https://astro.build/) (for content-focused websites and static site generation)
-*   **Frontend:** [React](https://react.dev/) (for interactive UI components)
-*   **Styling:** [Tailwind CSS](https://tailwindcss.com/) (for utility-first CSS)
-*   **Animations:** [Framer Motion](https://www.framer.com/motion/) & [GSAP](https://gsap.com/)
-*   **3D Graphics:** [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction) & [@react-three/drei](https://github.com/pmndrs/drei)
-*   **Form Management:** [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/) (for schema validation)
-*   **Icons:** [Lucide React](https://lucide.dev/) & [@tabler/icons-react](https://tabler-icons.io/)
-*   **Deployment:** [Vercel](https://vercel.com/)
-
-## ⚙️ Installation & Local Development
-
-To get a local copy up and running, follow these simple steps.
+## 🚀 Getting Started
 
 ### Prerequisites
 
-Make sure you have Node.js (v18 or higher) and npm installed on your machine.
+- Node.js (v14+)
+- npm or yarn
 
-### Clone the repository
+### Installation
 
-```bash
-git clone https://github.com/AbdelkbirNA/abdelkbir-nainiaa-portfolio.git
-cd abdelkbir-nainiaa-portfolio
-```
+1. Clone the repository:
 
-### Install dependencies
+    ```bash
+    git clone https://github.com/AbdelkbirNA/3d-portfolio.git
+    ```
 
-```bash
-npm install
-```
+2. Navigate to the project directory:
 
-### Run the development server
+    ```bash
+    cd 3d-portfolio
+    ```
 
-```bash
-npm run dev
-```
+3. Install dependencies:
 
-This will start the development server at `http://localhost:4321`.
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-### Build for production
+4. Run the development server:
 
-```bash
-npm run build
-```
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
 
-This command will build your production site to the `./dist/` directory.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the magic!
 
-### Preview the production build
+## 🚀 Deployment
 
-```bash
-npm run preview
-```
+This site is deployed on Vercel. For your own deployment, follow these steps:
 
-## 📞 Contact
+1. Push your code to a GitHub repository.
+2. Connect your repository to Vercel.
+3. Vercel will handle the deployment process.
 
-Feel free to reach out to me through the contact form on my portfolio or connect with me on:
+## 🤝 Contributing
 
-*   **LinkedIn:** [https://www.linkedin.com/in/abdelkbir-nainiaa/](https://www.linkedin.com/in/abdelkbir-nainiaa/)
-*   **GitHub:** [https://github.com/AbdelkbirNA](https://github.com/AbdelkbirNA)
-*   **Email:** abdlekbir.nainiaa12@gmail.com
+If you'd like to contribute or suggest improvements, feel free to open an issue or submit a pull request. All contributions are welcome!
 
-Thank you for visiting my portfolio!
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).

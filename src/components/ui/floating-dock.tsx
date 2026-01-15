@@ -1,225 +1,251 @@
+/**
+ * Note: Use position fixed according to your needs
+ * Desktop navbar is better positioned at the bottom
+ * Mobile navbar is better positioned at bottom right.
+ **/
+
 import { cn } from "@/lib/utils";
-import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
-import React, {  useState, useEffect, memo } from "react";
+// import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
+import {
+  AnimatePresence,
+  MotionValue,
+  motion,
+  useAnimation,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { opacity } from "../header/anim";
 
-// Types
-interface DockItem {
-  title: string;
-  icon: React.ReactNode;
-  onClick?: () => void;
-  href?: string;
-  isLogo?: boolean;
-}
-
-interface FloatingDockProps {
-  items: DockItem[];
-  desktopClassName?: string;
-  mobileClassName?: string;
-}
-
-// Optimized component with memo to prevent unnecessary re-renders
-export const FloatingDock = memo(({
+export const FloatingDock = ({
   items,
   desktopClassName,
   mobileClassName,
-}: FloatingDockProps) => {
-  // Check if we're on a mobile device
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkMobile();
-    
-    // Add event listener with debounce
-    let resizeTimer: ReturnType<typeof setTimeout>;
-    const handleResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(checkMobile, 100);
-    };
-    
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      clearTimeout(resizeTimer);
-    };
-  }, []);
-  
-  // Conditionally render based on screen size
-  return isMobile ? (
-    <FloatingDockMobile items={items} className={mobileClassName} />
-  ) : (
-    <FloatingDockDesktop items={items} className={desktopClassName} />
+}: {
+  items: { title: string; icon: React.ReactNode }[];
+  desktopClassName?: string;
+  mobileClassName?: string;
+}) => {
+  return (
+    <>
+      <FloatingDockDesktop items={items} className={desktopClassName} />
+      {/* <FloatingDockMobile items={items} className={mobileClassName} /> */}
+    </>
   );
-});
+};
 
-FloatingDock.displayName = "FloatingDock";
-
-// Mobile version with simplified animations
-const FloatingDockMobile = memo(({
+const FloatingDockMobile = ({
   items,
   className,
 }: {
-  items: DockItem[];
+  items: { title: string; icon: React.ReactNode }[];
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
-  
   return (
-    <div className={cn("relative block", className)}>
-      {open && (
-        <div className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2 transition-all">
-          {items.map((item, idx) => (
-            <div
-              key={item.title}
-              className="transform transition-all duration-200"
-              style={{
-                opacity: open ? 1 : 0,
-                transform: `translateY(${open ? 0 : 10}px)`,
-                transitionDelay: `${(items.length - 1 - idx) * 50}ms`,
-              }}
-            >
-              {item.href ? (
-                <a
-                  href={item.href}
-                  aria-label={item.title}
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+    <div className={cn("relative block md:hidden", className)}>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            layoutId="nav"
+            className="absolute bottom-full mb-2 inset-x-0 flex flex-col gap-2"
+          >
+            {items.map((item, idx) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  y: 10,
+                  transition: {
+                    delay: idx * 0.05,
+                  },
+                }}
+                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
+              >
+                <div
+                  key={item.title}
+                  className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
                 >
-                  <div className="h-6 w-6">{item.icon}</div>
-                </a>
-              ) : (
-                <button
-                  onClick={item.onClick}
-                  aria-label="change theme"
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
-                >
-                  <div className="h-6 w-6">{item.icon}</div>
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-      <button
+                  <div className="h-4 w-4">{item.icon}</div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* <button
         onClick={() => setOpen(!open)}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
-        aria-label="toggle menu"
+        className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center"
       >
         <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
-      </button>
+      </button> */}
     </div>
   );
-});
+};
 
-FloatingDockMobile.displayName = "FloatingDockMobile";
-
-// Desktop version with optimized hover effects
-const FloatingDockDesktop = memo(({
+const FloatingDockDesktop = ({
   items,
   className,
 }: {
-  items: DockItem[];
+  items: { title: string; icon: React.ReactNode }[];
   className?: string;
 }) => {
+  let mouseX = useMotionValue(Infinity);
+  const [showHint, setShowHint] = useState(true);
+  const timer = useRef<NodeJS.Timeout>();
+  const controls = useAnimation();
+  useEffect(() => {
+    if (showHint) {
+      controls.start({
+        opacity: [0, 1, 1, 0],
+        x: [-50, -50, 50, 50],
+        transition: {
+          duration: 2,
+          repeatDelay: 2,
+          delay: 2,
+          times: [0, 0.2, 0.8, 1],
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+      });
+    } else {
+      controls.stop();
+    }
+    return () => {
+      controls.stop();
+      clearInterval(timer.current);
+    };
+  }, [showHint]);
   return (
-    <div
-      className={cn(
-        "mx-auto justify-center h-16 items-center gap-4 rounded-2xl bg-gray-50 px-4 flex dark:bg-neutral-900",
-        className,
+    <div className="relative h-fit flex items-center justify-center pointer-events-auto">
+      <motion.div
+        onMouseMove={(e) => {
+          mouseX.set(e.pageX);
+          setShowHint(false);
+        }}
+        onMouseLeave={() => mouseX.set(Infinity)}
+        className={cn(
+          // "hidden md:flex",
+          "flex gap-2 md:gap-4",
+          "mx-auto h-16 items-end  rounded-2xl bg-gray-50 dark:bg-neutral-900 px-4 pb-3",
+          // "blur-sm brightness-50",
+          className
+        )}
+      >
+        {items.map((item) => (
+          <IconContainer mouseX={mouseX} key={item.title} {...item} />
+        ))}
+      </motion.div>
+      {showHint && (
+        <div
+          className="z-10 absolute t-0 w-full h-full pointer-events-none"
+          onMouseEnter={() => setShowHint(false)}
+        >
+          <div
+            className={cn(
+              "relative w-full h-full flex items-center justify-center"
+              // "backdrop-blur-md"
+            )}
+          >
+            <motion.div
+              className={cn(
+                "w-5 h-5 border-2 left-[50%] top-0 border-black dark:border-white rounded-full",
+                "translate-x-[-50px]"
+              )}
+              initial={{ opacity: 0, x: -50 }}
+              animate={controls}
+            ></motion.div>
+          </div>
+        </div>
       )}
-    >
-      {items.map((item) => (
-        <IconContainer key={item.title} {...item} />
-      ))}
     </div>
   );
-});
+};
 
-FloatingDockDesktop.displayName = "FloatingDockDesktop";
-
-// Optimized icon container with CSS-based hover effects instead of physics simulations
-const IconContainer = memo(({
+function IconContainer({
+  mouseX,
   title,
   icon,
-  href,
-  onClick,
-  isLogo,
-}: Omit<DockItem, 'icon'> & { icon: React.ReactNode; isLogo?: boolean }) => {
+}: {
+  mouseX: MotionValue;
+  title: string;
+  icon: React.ReactNode;
+}) {
+  let ref = useRef<HTMLDivElement>(null);
+
+  let distance = useTransform(mouseX, (val) => {
+    let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+
+    return val - bounds.x - bounds.width / 2;
+  });
+
+  let widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  let heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+
+  let widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
+  let heightTransformIcon = useTransform(
+    distance,
+    [-150, 0, 150],
+    [20, 40, 20]
+  );
+
+  let width = useSpring(widthTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+  let height = useSpring(heightTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+
+  let widthIcon = useSpring(widthTransformIcon, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+  let heightIcon = useSpring(heightTransformIcon, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  });
+
   const [hovered, setHovered] = useState(false);
-  const [size, setSize] = useState(50); // Same size for all circles
-  
-  // Use CSS transitions instead of physics simulations
-  const handleMouseEnter = () => {
-    setHovered(true);
-    setSize(100); // Same hover size for all circles
-  };
-  
-  const handleMouseLeave = () => {
-    setHovered(false);
-    setSize(50); // Return to same default size for all circles
-  };
-  
-  // Calculate icon size proportionally - logo gets larger icon
-  const iconSize = isLogo ? size * 0.7 : size * 0.48; // 70% for logo, 48% for others
-  
+
   return (
-    <div>
-      <div
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="relative flex items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800 transition-all duration-300 ease-out"
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-        }}
-      >
+    <motion.div
+      ref={ref}
+      style={{ width, height }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center relative"
+    >
+      <AnimatePresence>
         {hovered && (
-          <div
-            className="absolute -top-8 left-1/2 w-fit rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs whitespace-pre text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white transition-opacity duration-200"
-            style={{
-              transform: 'translateX(-50%)',
-              opacity: hovered ? 1 : 0,
-            }}
+          <motion.div
+            initial={{ opacity: 0, y: 10, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: 2, x: "-50%" }}
+            className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 border dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
           >
             {title}
-          </div>
+          </motion.div>
         )}
-        {href ? (
-          <a 
-            href={href} 
-            target={title === 'LinkedIn' || title === 'GitHub' ? '_blank' : '_self'} 
-            aria-label={title}
-          >
-            <div
-              className="flex items-center justify-center transition-all duration-300 ease-out"
-              style={{
-                width: `${iconSize}px`,
-                height: `${iconSize}px`,
-              }}
-            >
-              {icon}
-            </div>
-          </a>
-        ) : (
-          <button onClick={onClick} aria-label="change theme">
-            <div
-              className="flex items-center justify-center transition-all duration-300 ease-out"
-              style={{
-                width: `${iconSize}px`,
-                height: `${iconSize}px`,
-              }}
-            >
-              {icon}
-            </div>
-          </button>
-        )}
-      </div>
-    </div>
+      </AnimatePresence>
+      <motion.div
+        style={{ width: widthIcon, height: heightIcon }}
+        className="flex items-center justify-center"
+      >
+        {icon}
+      </motion.div>
+    </motion.div>
   );
-});
-
-IconContainer.displayName = "IconContainer";
+}
