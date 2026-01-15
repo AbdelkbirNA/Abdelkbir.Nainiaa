@@ -22,7 +22,7 @@ const SlideShow = ({ images }: { images: string[] }) => {
   return (
     <Splide
       options={{
-        autoplay: "true",
+        autoplay: true,
         perPage: 1,
         start: 0,
         rewind: true,
@@ -61,6 +61,12 @@ const SlideShow = ({ images }: { images: string[] }) => {
                   )}
                 </AnimatePresence>
               </DialogTrigger>
+              <DialogContent className="min-w-[90vw] h-[90vh] bg-transparent outline-none border-none p-0 m-0">
+                <DialogHeader className="w-full">
+                  <DialogDescription>
+                    {image.split("/").pop()}
+                  </DialogDescription>
+                </DialogHeader>
                 <Image
                   src={image}
                   alt={`Full size project screenshot: ${image.split("/").pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') || 'Project image'}`}
