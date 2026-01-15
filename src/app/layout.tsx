@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: "Abdelkbir Nainiaa - Software Engineer | Creative Technologist",
     template: "%s | Abdelkbir Nainiaa",
   },
-  description: "Abdelkbir Nainiaa's portfolio, a creative technologist & software engineer specializing in interactive web experiences, 3D animations, and innovative projects.",
+  description: "Portfolio of Abdelkbir Nainiaa - Software Engineer & Creative Technologist. Interactive web experiences, 3D animations & innovative projects.",
   keywords: config.keywords,
   authors: [{ name: config.author, url: config.site }],
   robots: {
@@ -114,9 +114,14 @@ export default function RootLayout({
         ></Script>
       </head>
       <body>
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <Providers>
           <Header />
-          {children}
+          <main id="main-content">
+            {children}
+          </main>
           <Footer />
           <AppOverlays />
         </Providers>

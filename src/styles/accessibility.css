@@ -1,0 +1,76 @@
+/* Global accessibility and performance improvements */
+
+/* Focus visible styles for better keyboard navigation */
+.focus-visible:focus-visible {
+  @apply outline-2 outline-offset-2 outline-blue-500;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .text-slate-400 {
+    @apply text-slate-300;
+  }
+  
+  .border-white\/5 {
+    @apply border-white/20;
+  }
+  
+  .bg-white\/5 {
+    @apply bg-white/10;
+  }
+}
+
+/* Improve text readability */
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Skip link for screen readers */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: white;
+  padding: 8px;
+  z-index: 1000;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Ensure sufficient color contrast for links */
+a {
+  @apply underline-offset-4;
+}
+
+a:hover {
+  @apply underline;
+}
+
+/* Improve button accessibility */
+button:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Loading states */
+.loading {
+  @apply animate-pulse bg-slate-200 dark:bg-slate-700;
+}

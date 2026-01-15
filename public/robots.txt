@@ -2,18 +2,40 @@
 User-agent: *
 Allow: /
 
-# Specific directives for major search engines (optional, but good practice)
+# Specific directives for major search engines
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: AhrefsBot
 Allow: /
+Crawl-delay: 10
 
 User-agent: SEMrushBot
 Allow: /
+Crawl-delay: 10
+
+# Block certain bots that might be harmful
+User-agent: CCBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+# Disallow access to sensitive or unnecessary files
+Disallow: /_next/
+Disallow: /api/
+Disallow: /*.json$
 
 # Sitemap location
 Sitemap: https://www.abdelkbirnainiaa.me/sitemap.xml
+
+# Host directive (preferred domain)
+Host: https://www.abdelkbirnainiaa.me

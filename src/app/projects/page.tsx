@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import type { Metadata } from 'next';
 // @ts-ignore
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css/core";
@@ -90,11 +91,13 @@ function Page() {
                     <SplideSlide key={image}>
                       <Image
                         src={image}
-                        alt={`screenshot of "${project.name}`}
-                        className="w-[300px] h-[200px] rounded-md bg-zinc-900 "
+                        alt={`${project.name} project screenshot ${project.images.indexOf(image) + 1} of ${project.images.length}`}
+                        className="w-[300px] h-[200px] rounded-md bg-zinc-900"
                         width={300}
                         height={400}
-                        style={{ height: "200px" }}
+                        loading="lazy"
+                        style={{ height: "200px", objectFit: "cover" }}
+                        sizes="300px"
                       />
                     </SplideSlide>
                   ))}

@@ -42,9 +42,10 @@ const SlideShow = ({ images }: { images: string[] }) => {
               >
                 <Image
                   src={image}
-                  alt="screenshot"
+                  alt={`Project screenshot ${idx + 1} - Click to view full size`}
                   width={1000}
                   height={1000}
+                  loading="lazy"
                   className="w-full rounded-lg h-auto"
                 />
                 <AnimatePresence>
@@ -60,18 +61,12 @@ const SlideShow = ({ images }: { images: string[] }) => {
                   )}
                 </AnimatePresence>
               </DialogTrigger>
-              <DialogContent className="min-w-[90vw] h-[90vh] bg-transparent outline-none border-none p-0 m-0">
-                <DialogHeader className="w-full">
-                  {/* <DialogTitle>Are you absolutely sure?</DialogTitle> */}
-                  <DialogDescription>
-                    {image.split("/").pop()}
-                  </DialogDescription>
-                </DialogHeader>
                 <Image
                   src={image}
-                  alt="screenshot"
+                  alt={`Full size project screenshot: ${image.split("/").pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') || 'Project image'}`}
                   width={1000}
                   height={1000}
+                  loading="lazy"
                   className="w-full"
                   style={{ objectFit: "contain", width: "100vw" }}
                 />

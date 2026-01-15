@@ -138,8 +138,9 @@ const SkillsSection = () => {
                         <div className="relative w-14 h-14 mb-4 transform transition-all duration-300 group-hover:scale-110">
                           <Image
                             src={skill.icon}
-                            alt=""
+                            alt={`${skill.label} technology logo`}
                             fill
+                            loading="lazy"
                             className={cn(
                               "object-contain",
                               (skill.name === "express" || skill.name === "prisma" || skill.name === "ghactions" || skill.name === "cypress") && "brightness-0 invert"

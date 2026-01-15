@@ -60,8 +60,10 @@ const ProjectCard = ({
           <Image
             className="object-cover hover:scale-105 transition-transform duration-300"
             src={project.src}
-            alt={project.title}
+            alt={`Screenshot of ${project.title} project - ${project.category}`}
             fill
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
 
